@@ -1,0 +1,21 @@
+g=gcc
+ao=./lib/add.o
+so=./lib/sub.o
+CAL=./lib/libcal.a
+ac=./src/add.c
+sc=./src/sub.c
+
+
+$(ao):$(ac) ./include
+	$(g) -c $(ac) -o $(ao) -I./include
+$(so):$(sc) ./include
+	$(g) -c $(sc) -o $(so) -I./include
+$(CAL):$(ao) $(so)
+	ar rcs $(CAL) $(ao) $(so)
+main-v1:main.c $(CAL)
+	gcc -o main-v1 main.c -Llib -lcal -Iinclude
+.PHONY:clean
+clean:
+	rm ./lib/*.o
+	rm main-v1
+
