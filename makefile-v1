@@ -7,13 +7,13 @@ sc=./src/sub.c
 
 
 $(ao):$(ac) ./include
-	$(g) -c $(ac) -o $(ao) -I./include
+	$(g) -c $(ac) -o $@ -I./include
 $(so):$(sc) ./include
-	$(g) -c $(sc) -o $(so) -I./include
+	$(g) -c $(sc) -o $@ -I./include
 $(CAL):$(ao) $(so)
-	ar rcs $(CAL) $(ao) $(so)
+	ar rcs $@ $^
 main-v1:main.c $(CAL)
-	gcc -o main-v1 main.c -Llib -lcal -Iinclude
+	gcc -o $@ main.c -Llib -lcal -Iinclude
 .PHONY:clean
 clean:
 	rm ./lib/*.o
